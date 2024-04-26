@@ -1,6 +1,7 @@
-import { validate } from 'src/common';
 import { IsIn, IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 import { config } from 'dotenv';
+
+import { validate } from '../common';
 
 const environment = <const>['development', 'test', 'staging', 'production'];
 
@@ -26,6 +27,10 @@ export class Environment {
 
   @IsNotEmpty()
   jwt_access_secret: string;
+
+
+  @IsNotEmpty()
+  api_key: string;
 }
 
 config();
