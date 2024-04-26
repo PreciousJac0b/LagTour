@@ -18,7 +18,7 @@ import { AuthModule } from './modules/auth/auth.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [typeormConfig] }),
 
-    JwtModule.register({ global: true, secret: env.jwt_access_secret }),
+    JwtModule.register({ global: true, secret: env.access_secret }),
 
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../..', 'client', 'dist'),

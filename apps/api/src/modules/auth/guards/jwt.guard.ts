@@ -28,7 +28,7 @@ export class JwtGuard implements CanActivate {
     }
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: env.jwt_access_secret,
+        secret: env.access_secret,
       });
 
       const user = this.databaseService.user.findOne({

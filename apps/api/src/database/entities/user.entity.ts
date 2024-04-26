@@ -11,7 +11,7 @@ export class User {
   @PrimaryGeneratedColumn('increment')
   id: string;
 
-  @Column() // this is the column name in the database
+  @Column({ unique: true })
   username: string;
 
   @Column({ name: 'first_name' }) // this is the column name in the database
@@ -22,9 +22,6 @@ export class User {
 
   @Column({ unique: true })
   email: string;
-
-  @Column({ unique: true })
-  phone: string;
 
   @Column()
   password: string;
@@ -38,10 +35,10 @@ export class User {
   @Column({ type: 'text' })
   bio: string;
 
-  @Column({ type: 'text', name: 'profile_url' })
+  @Column({ type: 'text', name: 'profile_url', nullable: true })
   profileUrl: string;
 
-  @Column({ type: 'date', name: 'graduation_date' })
+  @Column({ type: 'date', name: 'graduation_date', nullable: true })
   graduationDate: Date;
 
   @CreateDateColumn({

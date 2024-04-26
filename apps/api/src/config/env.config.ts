@@ -26,7 +26,10 @@ export class Environment {
   db_name: string;
 
   @IsNotEmpty()
-  jwt_access_secret: string;
+  access_secret: string;
+
+  @IsNotEmpty()
+  accesstoken_expiresin: string;
 
 
   @IsNotEmpty()
