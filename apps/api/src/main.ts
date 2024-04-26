@@ -4,12 +4,22 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { env } from './config/env.config';
 import { ApiKeyGuard } from './modules/auth/guards/api.guard';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
   app.useGlobalGuards(new ApiKeyGuard());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      stopAtFirstError: false,
+      skipMissingProperties: false,
+    }),
+  );
+
 
   const config = new DocumentBuilder()
     .setTitle('NestJS Swagger Documentation')
