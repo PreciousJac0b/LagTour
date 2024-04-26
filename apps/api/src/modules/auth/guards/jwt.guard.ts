@@ -31,7 +31,9 @@ export class JwtGuard implements CanActivate {
         secret: env.jwt_access_secret,
       });
 
-      const user = this.databaseService.user.findOne({});
+      const user = this.databaseService.user.findOne({
+        where: { id: payload.id },
+      });
 
       if (!user) {
         throw new UnauthorizedException('Invalid Admin Details');
