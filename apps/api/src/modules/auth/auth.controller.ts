@@ -1,22 +1,29 @@
-import { Body, ClassSerializerInterceptor, Controller, Post, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Inject,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthenticateUserDto, CreateUserDto } from './auth.dto';
-import { access } from 'fs';
+import { HttpController } from 'src/common/http';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+export class AuthController extends HttpController {
+  @Inject() private readonly authService: AuthService;
 
   @Post('signup')
   async signUp(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.signUp(createUserDto);
-    return { success: true, user };
+    return this.send({ user });
   }
 
   @Post('signin')
   async signIn(@Body() authenticateUserDto: AuthenticateUserDto) {
     const token = await this.authService.signIn(authenticateUserDto);
-    return { sucess: true, token };
+    return this.send({ token });
   }
 }

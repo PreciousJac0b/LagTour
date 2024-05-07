@@ -1,16 +1,18 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 import { env } from './config/env.config';
 import { ApiKeyGuard } from './modules/auth/guards/api.guard';
+import { NotFoundExceptionFilter } from './common/exception_filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
+  app.useGlobalFilters(new NotFoundExceptionFilter());
   app.useGlobalGuards(new ApiKeyGuard());
   app.useGlobalPipes(
     new ValidationPipe({
@@ -31,7 +33,7 @@ async function bootstrap() {
 
   await app
     .listen(env.port)
-    .then(() => console.log(`app running on ${env.port}, LagTourBackend🚀`));
+    .then(() => Logger.log(`app running on ${env.port}, LagTourBackend🚀`));
 }
 
 bootstrap();
