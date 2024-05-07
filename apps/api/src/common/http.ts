@@ -45,10 +45,12 @@ export class LoggerMiddleware implements NestMiddleware {
       const contentLength = res.get('content-length');
       const hasPrivateDetails =
         this.check(req.body) || this.check(req.query) || this.check(req.params);
+
       if (hasPrivateDetails) {
         req.body = this.removeSensitiveFields(req.body);
         res.locals.body = {};
       }
+
       this.logger.info(
         JSON.stringify({
           'status-code': statusCode,
