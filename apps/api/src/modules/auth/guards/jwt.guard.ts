@@ -9,7 +9,6 @@ import {
 
 import { JwtService } from '@nestjs/jwt';
 
-import { User } from '../../../database/entities/user.entity';
 import { env } from '../../../config/env.config';
 import { DatabaseService } from '../../../database/database.service';
 
