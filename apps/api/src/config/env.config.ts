@@ -31,7 +31,6 @@ export class Environment {
   @IsNotEmpty()
   accesstoken_expiresin: string;
 
-
   @IsNotEmpty()
   api_key: string;
 }

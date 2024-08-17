@@ -17,7 +17,7 @@ export class HttpController {
   }
 }
 
-const sensitiveDetails = ['token', 'code', 'password'];
+const sensitiveDetails = ['token', 'code', 'password']; // the response will exclude sensitive details in the request object.
 
 /**
  * A Logger Provider for logging every http request to the server. It also includes to filter sensitive details

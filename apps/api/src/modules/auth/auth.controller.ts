@@ -18,6 +18,8 @@ export class AuthController extends HttpController {
   @Post('signup')
   async signUp(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.signUp(createUserDto);
+
+    // the password will be ignored because of the @Exclude decorator.
     return this.send({ user });
   }
 
