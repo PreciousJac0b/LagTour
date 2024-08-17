@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { AuthRepository } from './auth.repository';
+import { UserRepository } from '../users/users.repository';
 import { AuthenticateUserDto, CreateUserDto } from './auth.dto';
 import { User } from 'src/database/entities/user.entity';
 import { compare, hash } from 'bcryptjs';
@@ -13,7 +13,7 @@ import { compare, hash } from 'bcryptjs';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly repository: AuthRepository,
+    private readonly repository: UserRepository,
     private readonly jwtService: JwtService,
   ) {}
 

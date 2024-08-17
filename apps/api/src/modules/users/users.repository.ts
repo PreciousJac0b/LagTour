@@ -5,7 +5,7 @@ import { User } from '../../database/entities/user.entity';
 import { DeepPartial, FindOptionsWhere } from 'typeorm';
 
 @Injectable()
-export class AuthRepository {
+export class UserRepository {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async findUserByUniqueFields(params: {
