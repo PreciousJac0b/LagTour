@@ -7,14 +7,16 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { DatabaseModule } from './database/database.module';
 import typeormConfig from './config/typeorm.config';
 import { env } from './config/env.config';
-import { AuthModule } from './modules/auth/auth.module';
 import { LoggerMiddleware } from './common/http';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './common/exception_filter';
+
+import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { LoggerModule } from './modules/logger';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -34,6 +36,7 @@ import { LoggerModule } from './modules/logger';
     LoggerModule,
     DatabaseModule,
     AuthModule,
+    UsersModule
   ],
   providers: [{ provide: APP_FILTER, useClass: AllExceptionsFilter }],
 })

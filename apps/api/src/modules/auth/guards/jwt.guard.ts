@@ -30,14 +30,17 @@ export class JwtGuard implements CanActivate {
         secret: env.access_secret,
       });
 
-      const user = this.databaseService.user.findOne({
+      let user = await this.databaseService.user.findOne({
         where: { id: payload.id },
       });
 
       if (!user) {
         throw new UnauthorizedException('Invalid Admin Details');
       }
-      request['user'] = payload;
+
+      const { password, ...user_ } = user;
+
+      request['user'] = user_;
       return true;
     } catch {
       console.log('Invalid or Expired Token');

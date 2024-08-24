@@ -1,6 +1,13 @@
-import { Injectable, NestMiddleware, Inject } from '@nestjs/common';
+import {
+  Injectable,
+  NestMiddleware,
+  Inject,
+  createParamDecorator,
+  ExecutionContext,
+} from '@nestjs/common';
 
 import { NextFunction, Request, Response } from 'express';
+import { User } from '../database/entities/user.entity';
 
 import { LoggerService } from 'src/modules/logger';
 
@@ -78,5 +85,16 @@ export class LoggerMiddleware implements NestMiddleware {
     return data;
   }
 }
+
+export const GetUser = createParamDecorator(
+  (data, ctx: ExecutionContext): User => {
+    const req = ctx.switchToHttp().getRequest();
+
+    const { password, ...rest } = req.user;
+    console.log(req.user);
+    
+    return rest;
+  },
+);
 
 export const toLowerCase = ({ value }) => (<string>value).toUpperCase();
